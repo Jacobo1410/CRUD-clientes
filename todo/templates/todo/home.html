@@ -1,41 +1,47 @@
 {% extends 'todo/layout.html' %}
+{% load static %}
+
 
 {% block content %}
-<div class="container mt-4">
-  <h2 class="text-center mb-4">Lista de Clientes</h2>
-  <div class="text-right mb-3">
-    <a class="btn btn-success btn-sm" href="{% url 'agregar' %}">Agregar Cliente</a>
-  </div>
-  <table class="table table-dark table-hover text-center">
+<div class="contenedor-articulos" style="position: relative">
+  <section>
+    <h2>Lista de Clientes</h2>
+
+    <a class="boton-agregar" href="{% url 'agregar' %}">
+      <img src="{% static 'todo/images/icono-anadir.png' %}" alt="Agregar">
+    </a>
+
+    <table class="formulario">
       <thead>
-          <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Correo</th>
-              <th scope="col">Teléfono</th>
-              <th scope="col">Acción</th>
-          </tr>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Acción</th>
+        </tr>
       </thead>
       <tbody>
-          {% for cliente in clientes %}
-          <tr>
-              <th scope="row">{{ cliente.id }}</th>
-              <td>{{ cliente.nombre }}</td>
-              <td>{{ cliente.apellido }}</td>
-              <td>{{ cliente.correo }}</td>
-              <td>{{ cliente.telefono }}</td>
-              <td>
-                  <a class="btn btn-danger btn-sm" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
-                  <a class="btn btn-primary btn-sm" href="{% url 'editar' cliente.id %}">Editar</a>
-              </td>
-          </tr>
-          {% empty %}
-          <tr>
-              <td colspan="6" class="text-center">No hay clientes registrados.</td>
-          </tr>
-          {% endfor %}
+        {% for cliente in clientes %}
+        <tr>
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.nombre }}</td>
+          <td>{{ cliente.apellido }}</td>
+          <td>{{ cliente.correo }}</td>
+          <td>{{ cliente.telefono }}</td>
+          <td>
+            <a class="clickeable" href="{% url 'eliminar' cliente.id %}">Eliminar</a>
+            <a class="clickeable" href="{% url 'editar' cliente.id %}">Editar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">No hay clientes registrados.</td>
+        </tr>
+        {% endfor %}
       </tbody>
-  </table>
+    </table>
+  </section>
 </div>
 {% endblock %}
